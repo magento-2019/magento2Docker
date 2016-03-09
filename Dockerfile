@@ -13,18 +13,13 @@ RUN apt-get install -y --force-yes php-soap php7.0-gd php7.0-mcrypt sendmail php
 RUN apt-get install -y --force-yes vim
 RUN apt-get upgrade -y && \
 apt-get clean -y
-#RUN php7.0enmod mcrypt
-#RUN apt-get install -y php7.0-gd
 
 RUN curl -sS https://getcomposer.org/installer | php && \
 mv composer.phar /usr/local/bin/composer
 
-#----
 VOLUME  /var/www
-#COPY dockerFiles/magento2 /var/www
 VOLUME  /var/log/magento
 
-#RUN cd /var/www && \
 RUN composer global require "fxp/composer-asset-plugin:1.1.1"
 
 COPY dockerFiles/nginx /etc/nginx
@@ -39,13 +34,5 @@ RUN chmod +x /root/run.sh
 EXPOSE 80
 
 ENTRYPOINT /root/run.sh
-#----
-#RUN chmod -R 777 /var/www/frontend/assets/
-#RUN chmod -R 777 /var/www/frontend/runtime
-#RUN chmod -R 777 /var/www/frontend/web/assets
-#
-#RUN chmod -R 777 /var/www/backend/assets/
-#RUN chmod -R 777 /var/www/backend/runtime
-#RUN chmod -R 777 /var/www/backend/web/assets
 
 
